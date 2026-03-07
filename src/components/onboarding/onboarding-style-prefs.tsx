@@ -204,16 +204,6 @@ export function OnboardingStylePrefs({
         >
           {T.onboarding.myVariant}
         </button>
-        <button
-          type="button"
-          onClick={handleComplete}
-          className={cn(
-            "flex w-full min-h-[52px] items-center justify-center rounded-xl font-medium text-white transition-all duration-300",
-            "bg-primary hover:bg-primary/90 hover:scale-[1.01] hover:shadow-lg active:scale-[0.99] text-primary-foreground"
-          )}
-        >
-          {T.onboarding.generateMyStyle}
-        </button>
       </motion.div>
 
       <AnimatePresence>

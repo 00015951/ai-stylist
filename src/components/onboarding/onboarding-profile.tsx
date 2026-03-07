@@ -477,30 +477,19 @@ export function OnboardingProfile({
         </AnimatePresence>
         </div>
 
-      {/* Actions — eng pastda */}
-      <div className="mt-auto shrink-0 pt-4 flex gap-3">
-        {subStep > 1 && (
+      {/* Back only — Continue via Telegram MainButton */}
+      {subStep > 1 && (
+        <div className="mt-auto shrink-0 pt-4">
           <Button
             type="button"
             variant="outline"
-            className="min-h-[48px] shrink-0 rounded-xl border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 hover:border-neutral-300"
+            className="min-h-[48px] w-full rounded-xl border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 hover:border-neutral-300"
             onClick={goBack}
           >
             {T.onboarding.back}
           </Button>
-        )}
-        <Button
-          type="button"
-          size="lg"
-          className={cn(
-            "min-h-[48px] flex-1 rounded-xl bg-primary font-medium text-primary-foreground transition-all duration-300",
-            "hover:bg-primary/90 hover:scale-[1.01] hover:shadow-lg active:scale-[0.99]"
-          )}
-          onClick={goNext}
-        >
-          {subStep < PROFILE_STEPS ? T.onboarding.continue : T.onboarding.continue}
-        </Button>
-      </div>
+        </div>
+      )}
       </div>
     </motion.div>
   );

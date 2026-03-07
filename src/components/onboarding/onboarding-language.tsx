@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/store/use-app-store";
 import { LANGUAGES, getTranslations, type AppLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -113,18 +112,6 @@ export function OnboardingLanguage({ onNext }: OnboardingLanguageProps) {
             </div>
           </div>
         </div>
-      </motion.div>
-
-      <motion.div variants={staggerItem} className="w-full max-w-sm">
-        <Button
-          size="lg"
-          className="min-h-[48px] w-full rounded-xl bg-primary text-base font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:scale-[1.01] hover:shadow-lg active:scale-[0.98]"
-          onClick={onNext}
-          aria-label="Start styling setup"
-        >
-          <Sparkles className="mr-2 h-5 w-5" strokeWidth={2} />
-          {T.onboarding.startStyling}
-        </Button>
       </motion.div>
     </motion.div>
   );

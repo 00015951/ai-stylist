@@ -86,7 +86,7 @@ export function TrendsCarousel() {
       <div className="relative -mx-4 overflow-hidden px-4">
         <div
           ref={scrollRef}
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 scrollbar-hide"
+          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 scrollbar-hide scroll-smooth"
           style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
