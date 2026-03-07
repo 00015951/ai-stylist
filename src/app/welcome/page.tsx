@@ -34,7 +34,7 @@ export default function WelcomePage() {
       style={{ backgroundColor: "#F8F7F4" }}
     >
       {/* ——— 1) HERO SECTION ——— */}
-      <section className="flex min-h-dvh w-full flex-col items-center justify-center px-4 py-10 md:min-h-screen md:flex-row md:items-center md:justify-between md:gap-8 md:px-8 lg:mx-auto lg:max-w-7xl lg:px-12 lg:gap-12">
+      <section className="flex w-full flex-col items-center justify-center px-4 py-4 md:min-h-screen md:flex-row md:items-center md:justify-between md:gap-6 md:px-8 md:py-8 lg:mx-auto lg:max-w-7xl lg:px-12 lg:gap-10">
         <div className="flex max-w-xl flex-1 flex-col md:pr-2">
           <motion.h1
             className="font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl"
@@ -92,7 +92,7 @@ export default function WelcomePage() {
       </section>
 
       {/* ——— 2) TRUST LINE ——— */}
-      <section className="w-full px-4 py-8 md:py-10">
+      <section className="w-full px-4 py-2 md:py-4">
         <motion.div
           className="mx-auto max-w-2xl text-center"
           initial={{ opacity: 0 }}
@@ -107,14 +107,14 @@ export default function WelcomePage() {
             Personalized styling powered by AI technology
           </p>
           <div
-            className="mx-auto mt-5 h-px w-24"
+            className="mx-auto mt-3 h-px w-24"
             style={{ backgroundColor: "#722F37", opacity: 0.35 }}
           />
         </motion.div>
       </section>
 
       {/* ——— 3) HOW IT WORKS ——— */}
-      <section className="w-full px-4 py-10 md:py-14">
+      <section className="w-full px-4 py-6 md:py-10">
         <div className="mx-auto max-w-5xl">
           <motion.h2
             className="font-heading text-center text-2xl font-semibold tracking-tight md:text-3xl"
@@ -185,7 +185,7 @@ export default function WelcomePage() {
       </section>
 
       {/* ——— 4) FEATURES (two-column) ——— */}
-      <section className="w-full px-4 py-10 md:py-14" style={{ backgroundColor: "#F0EDE8" }}>
+      <section className="w-full px-4 py-6 md:py-10" style={{ backgroundColor: "#F0EDE8" }}>
         <div className="mx-auto max-w-5xl">
           <motion.h2
             className="font-heading text-center text-2xl font-semibold tracking-tight md:text-3xl"
@@ -264,7 +264,7 @@ export default function WelcomePage() {
       </section>
 
       {/* ——— 5) FINAL CTA ——— */}
-      <section className="w-full px-4 py-12 md:py-16">
+      <section className="w-full px-4 py-8 md:py-12">
         <motion.div
           className="mx-auto max-w-2xl text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -291,6 +291,13 @@ export default function WelcomePage() {
           </Link>
         </motion.div>
       </section>
+
+      {/* ——— FOOTER ——— */}
+      <footer className="mt-12 pb-8 pt-8 md:mt-16 md:pb-10 md:pt-10">
+        <p className="mx-auto max-w-2xl px-4 text-center text-sm text-gray-500">
+          © 2026 Moxinur Maxamadnazimova – AI Personal Stylist Project, University of Westminster
+        </p>
+      </footer>
     </div>
   );
 }

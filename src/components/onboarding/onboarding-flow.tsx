@@ -22,7 +22,7 @@ interface OnboardingFlowProps {
  */
 export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   const [step, setStep] = useState(1);
-  const { setMainButton, setBackButton, haptic } = useTelegram();
+  const { isTelegram, setMainButton, setBackButton, haptic } = useTelegram();
   const formSubmitRef = useRef<() => void | null>(null);
   const language = useAppStore((state) => state.language);
   const T = getTranslations(language);
@@ -30,8 +30,13 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   const progress = (step / TOTAL_STEPS) * 100;
   const stepLabel = T.onboarding.stepOf.replace("{step}", String(step)).replace("{total}", String(TOTAL_STEPS));
 
-  // Integrate Telegram MainButton and BackButton
+  // Telegram MainButton and BackButton — only show when opened inside Telegram, not in standalone web app
   useEffect(() => {
+    if (!isTelegram) {
+      setMainButton({ text: "", onClick: () => {}, show: false });
+      setBackButton(null);
+      return;
+    }
     if (step === 1) {
       setMainButton({
         text: T.onboarding.startStyling,
@@ -69,7 +74,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         setStep(2);
       });
     }
-  }, [step, setMainButton, setBackButton, haptic, T.onboarding.startStyling, T.onboarding.continue, T.onboarding.generateMyStyle]);
+  }, [isTelegram, step, setMainButton, setBackButton, haptic, T.onboarding.startStyling, T.onboarding.continue, T.onboarding.generateMyStyle]);
 
   // Hide Telegram buttons when leaving onboarding
   useEffect(() => {
@@ -80,7 +85,7 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   }, [setMainButton, setBackButton]);
 
   return (
-    <div className="flex flex-1 flex-col gap-6 py-6 sm:gap-8 sm:py-8 min-h-0">
+    <div className="flex flex-1 flex-col gap-4 py-4 sm:gap-6 sm:py-6 min-h-0">
       {/* Main progress bar — only show on steps 1 and 3; step 2 has its own 4-step progress */}
       {step !== 2 && (
         <div className="space-y-2">

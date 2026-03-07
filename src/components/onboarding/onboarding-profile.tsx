@@ -30,7 +30,7 @@ interface OnboardingProfileProps {
   onNext: () => void;
 }
 
-const GENDER_OPTIONS: { value: string; key: "male" | "female" | "other"; icon: React.ReactNode }[] = [
+const GENDER_OPTIONS: { value: string; key: "male" | "female"; icon: React.ReactNode }[] = [
   {
     value: "male",
     key: "male",
@@ -49,13 +49,6 @@ const GENDER_OPTIONS: { value: string; key: "male" | "female" | "other"; icon: R
         height={24}
         className="h-6 w-6 object-contain"
       />
-    ),
-  },
-  {
-    value: "other",
-    key: "other",
-    icon: (
-      <Image src="/icons/others.png" alt="" width={24} height={24} className="h-6 w-6 object-contain" />
     ),
   },
 ];
@@ -301,7 +294,7 @@ export function OnboardingProfile({
                 <h3 className="text-lg font-semibold text-neutral-900">{T.onboarding.stepGender}</h3>
                 <p className="text-sm text-neutral-500">{T.onboarding.stepGenderDesc}</p>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 {GENDER_OPTIONS.map((opt) => (
                   <OptionButton
                     key={opt.value}

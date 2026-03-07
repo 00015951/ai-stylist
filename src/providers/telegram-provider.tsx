@@ -9,10 +9,12 @@ import React, { createContext, useContext, useEffect, useCallback } from "react"
 declare global {
   interface Window {
     Telegram?: {
-      WebApp: {
-        ready: () => void;
-        expand: () => void;
-        close: () => void;
+        WebApp: {
+          ready: () => void;
+          expand: () => void;
+          close: () => void;
+          /** Only set when opened inside Telegram; empty in browser */
+          initData?: string;
         MainButton: {
           text: string;
           color: string;
@@ -109,12 +111,15 @@ export function TelegramProvider({ children }: TelegramProviderProps) {
           script.onload = resolve;
         });
 
-        const tg = (window as Window & { Telegram?: { WebApp: unknown } })
+        const tg = (window as Window & { Telegram?: { WebApp: { initData?: string; ready?: () => void; expand?: () => void } } })
           .Telegram;
         if (tg?.WebApp) {
-          tg.WebApp.ready();
-          tg.WebApp.expand(); // Use full height
-          setIsTelegram(true);
+          tg.WebApp.ready?.();
+          tg.WebApp.expand?.();
+          // Only show Telegram UI (e.g. bottom MainButton) when opened inside Telegram; in browser initData is empty
+          if (tg.WebApp.initData) {
+            setIsTelegram(true);
+          }
         }
       } catch {
         // Not in Telegram - app will work in standalone mode

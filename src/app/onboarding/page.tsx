@@ -24,7 +24,7 @@ export default function OnboardingPage() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-neutral-50 pt-safe-top">
-      <div className="mx-auto flex min-h-full w-full max-w-lg flex-1 flex-col px-4 pb-8 pt-2 sm:px-5 sm:pb-10">
+      <div className="mx-auto flex min-h-full w-full max-w-lg flex-1 flex-col px-4 pb-4 pt-2 sm:px-5 sm:pb-6">
         <OnboardingFlow onComplete={() => router.replace("/")} />
       </div>
     </div>
