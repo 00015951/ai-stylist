@@ -19,6 +19,7 @@ declare global {
           text: string;
           color: string;
           textColor: string;
+          setParams: (params: { color?: string; text_color?: string; text?: string }) => void;
           isVisible: boolean;
           isActive: boolean;
           isProgressVisible: boolean;
@@ -149,6 +150,14 @@ export function TelegramProvider({ children }: TelegramProviderProps) {
       tg.MainButton.setText(text);
       tg.MainButton.offClick(config.onClick);
       tg.MainButton.onClick(config.onClick);
+
+      // Primary color #722F37 — same as app branding
+      if (typeof tg.MainButton.setParams === "function") {
+        tg.MainButton.setParams({ color: "#722F37", text_color: "#FFFFFF" });
+      } else {
+        (tg.MainButton as { color?: string; textColor?: string }).color = "#722F37";
+        (tg.MainButton as { color?: string; textColor?: string }).textColor = "#FFFFFF";
+      }
 
       tg.MainButton.show();
       tg.MainButton.enable();
