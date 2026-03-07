@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev:server\" \"npm run dev:frontend\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:frontend": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -25,6 +27,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "concurrently": "^9.1.0",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",

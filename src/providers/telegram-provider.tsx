@@ -53,6 +53,8 @@ declare global {
 interface TelegramContextValue {
   /** Whether the app is running inside Telegram */
   isTelegram: boolean;
+  /** initData for backend auth (only when opened from Telegram) */
+  initData: string | null;
   /** Main button click handler - use to attach custom actions */
   setMainButton: (config: {
     text: string;
@@ -71,6 +73,7 @@ interface TelegramContextValue {
 
 const TelegramContext = createContext<TelegramContextValue>({
   isTelegram: false,
+  initData: null,
   setMainButton: () => {},
   setBackButton: () => {},
   haptic: {
@@ -94,6 +97,7 @@ interface TelegramProviderProps {
 
 export function TelegramProvider({ children }: TelegramProviderProps) {
   const [isTelegram, setIsTelegram] = React.useState(false);
+  const [initData, setInitData] = React.useState<string | null>(null);
   const backButtonHandlerRef = React.useRef<(() => void) | null>(null);
 
   useEffect(() => {
@@ -117,9 +121,9 @@ export function TelegramProvider({ children }: TelegramProviderProps) {
         if (tg?.WebApp) {
           tg.WebApp.ready?.();
           tg.WebApp.expand?.();
-          // Only show Telegram UI (e.g. bottom MainButton) when opened inside Telegram; in browser initData is empty
           if (tg.WebApp.initData) {
             setIsTelegram(true);
+            setInitData(tg.WebApp.initData);
           }
         }
       } catch {
@@ -198,7 +202,7 @@ export function TelegramProvider({ children }: TelegramProviderProps) {
 
   return (
     <TelegramContext.Provider
-      value={{ isTelegram, setMainButton, setBackButton, haptic }}
+      value={{ isTelegram, initData, setMainButton, setBackButton, haptic }}
     >
       {children}
     </TelegramContext.Provider>

@@ -3,6 +3,7 @@ const nextConfig = {
   transpilePackages: ['@twa-dev/sdk'],
   images: {
     remotePatterns: [
+      { protocol: 'https', hostname: 'api.telegram.org' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'images.pexels.com' },
       { protocol: 'https', hostname: 'raslov.ua' },

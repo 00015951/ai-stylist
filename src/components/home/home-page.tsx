@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, CloudSun, Send, User } from "lucide-react";
 import { useAppStore, type GeneratedStyleResult } from "@/store/use-app-store";
 import { getTranslations } from "@/lib/i18n";
+import { generateStyle as apiGenerateStyle, getWeather } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTelegram } from "@/providers/telegram-provider";
@@ -25,7 +26,7 @@ type ChatMessage = {
  */
 export function HomePage() {
   const router = useRouter();
-  const { haptic } = useTelegram();
+  const { haptic, initData } = useTelegram();
   const profile = useAppStore((state) => state.profile);
   const stylePreferences = useAppStore((state) => state.stylePreferences);
   const language = useAppStore((state) => state.language);
@@ -67,11 +68,8 @@ export function HomePage() {
     if (useWeather && weatherCity.trim()) {
       setWeatherLoading(true);
       try {
-        const wRes = await fetch(
-          `/api/weather?city=${encodeURIComponent(weatherCity.trim())}`
-        );
-        const wData = await wRes.json();
-        if (wRes.ok && wData.tempC != null) {
+        const wData = await getWeather(weatherCity.trim());
+        if (wData?.tempC != null) {
           weather = {
             tempC: wData.tempC,
             condition: wData.condition ?? "Unknown",
@@ -147,24 +145,17 @@ export function HomePage() {
     }
 
     try {
-      const response = await fetch("/api/generate-style", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const data: GeneratedStyleResult = await apiGenerateStyle(
+        {
           occasion: occasionText,
           language,
           profile: profile ?? undefined,
           stylePreferences: stylePreferences ?? [],
           weather,
           trendInspired,
-        }),
-      });
-
-      const data: GeneratedStyleResult = await response.json();
-
-      if (!response.ok) {
-        throw new Error((data as { error?: string }).error ?? "Failed to generate");
-      }
+        },
+        initData
+      );
 
       setMessages((prev) => [
         ...prev,

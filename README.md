@@ -1,100 +1,99 @@
 # Virtual AI Stylist
 
-A Telegram Mini App (TWA) for personalized outfit recommendations. Built as a graduation project for Business Information Systems.
+100% fullstack Telegram Mini App – telefon orqali login, AI orqali kiyim tavsiyalari.
 
-## Tech Stack
+## Arxitektura
 
-- **Framework:** Next.js 14+ (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS + Shadcn/UI
-- **Icons:** Lucide React
-- **SDK:** @twa-dev/sdk (Telegram Web App integration)
-- **State:** Zustand with persistence
+| Qism | Texnologiya |
+|------|-------------|
+| **Mini Web App** | Next.js 14, TypeScript, Tailwind, Zustand |
+| **Backend** | Node.js, Express |
+| **Bot** | node-telegram-bot-api (login telefon orqali) |
+| **AI** | Groq (bepul tier – Llama 3.3 70B) |
+| **DB** | SQLite (better-sqlite3) |
 
-## Features
+## Flow
 
-- **Multi-step Onboarding**
-  - Welcome screen
-  - Profile setup (height, weight, gender, body type)
-  - Style preferences (Casual, Business, Streetwear, etc.)
+1. User botga `/start` bosadi → Bot telefon so'raydi
+2. User telefon ulashadi → Bot saqlaydi, "Hush kelibsiz" + **Mini App ochish** tugmasi
+3. Tugma bosilganda Mini App ochiladi, **auto-login** (initData)
+4. Profile: Telegram maʼlumotlari (username, telefon, ism, rasm)
 
-- **Generate Look**
-  - Describe your occasion (e.g., "Dinner date in rainy weather")
-  - AI-style mock recommendations via API
+## Boshlash
 
-- **Results Dashboard**
-  - Persona summary based on profile
-  - Outfit card (Top, Bottom, Shoes, Accessories)
-  - Save to Favorites
-
-- **Wardrobe**
-  - View saved outfits
-  - Remove from favorites
-
-- **Profile**
-  - View/edit profile
-  - Re-do onboarding
-
-## Getting Started
+### 1. Backend
 
 ```bash
-# Install dependencies
+cd server
 npm install
-
-# Run development server
+cp ../.env.example .env
+# .env ni to'ldiring: BOT_TOKEN, GROQ_API_KEY, WEB_APP_URL
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in a browser, or test inside Telegram via [@BotFather](https://t.me/BotFather) → create bot → set up Web App URL.
+Backend: `http://localhost:3001`
 
-## Project Structure
+### 2. Frontend (Mini App)
 
-```
-src/
-├── app/                    # Next.js App Router
-│   ├── api/generate-style/ # Mock AI styling API
-│   ├── onboarding/         # Multi-step onboarding
-│   ├── results/            # Generated outfit results
-│   ├── wardrobe/           # Saved outfits
-│   └── profile/            # User profile
-├── components/
-│   ├── layout/             # Mobile layout, bottom nav
-│   ├── onboarding/         # Onboarding steps
-│   ├── home/               # Home page (Generate Look)
-│   └── ui/                 # Shadcn components
-├── providers/              # TelegramProvider
-├── store/                  # Zustand store
-└── lib/                    # Utilities
+```bash
+npm install
+cp .env.example .env.local
+# NEXT_PUBLIC_API_URL=http://localhost:3001
+npm run dev
 ```
 
-## API
+### 3. Telegram Bot
 
-### POST /api/generate-style
+1. [@BotFather](https://t.me/BotFather) – `/newbot`
+2. `BOT_TOKEN` ni `.env` ga yozing
+3. Bot → Bot Settings → Menu Button yoki Web App URL:
+   - `WEB_APP_URL`: mini app manzili (masalan `https://your-app.vercel.app`)
 
-Request body:
+### 4. Groq API
 
-```json
-{
-  "occasion": "Dinner date in rainy weather",
-  "profile": {
-    "height": 170,
-    "weight": 70,
-    "gender": "other",
-    "bodyType": "average"
-  },
-  "stylePreferences": ["casual", "elegant"]
-}
+1. [console.groq.com](https://console.groq.com) – hisob oching
+2. API key yarating (bepul tier)
+3. `GROQ_API_KEY` ni `.env` ga qo'ying
+
+## Loyiha struktura
+
+```
+virtual-ai-stylist/
+├── server/                 # Express backend
+│   ├── bot/                # Telegram bot (login, Web App tugma)
+│   ├── db/                 # SQLite, migrations
+│   ├── routes/             # auth, styles, generate-style, user, wardrobe, weather
+│   ├── services/           # Groq AI
+│   └── index.js
+├── src/                    # Next.js Mini App
+│   ├── app/
+│   ├── components/
+│   ├── lib/api.ts          # Backend API client
+│   └── providers/
+└── docs/
+    └── MINI_WEB_APP_API.md # To'liq API hujjati
 ```
 
-Returns mock outfit recommendations. Replace with a real AI service for production.
+## API Hujjati
 
-## HCI Principles
+Barcha endpointlar va request/response formatlari: [docs/MINI_WEB_APP_API.md](docs/MINI_WEB_APP_API.md)
 
-- **Mobile-first:** Fixed bottom navigation, touch targets ≥ 44px
-- **Visibility:** Progress bar during onboarding
-- **Feedback:** Loading states, haptic feedback in Telegram
-- **Consistency:** Shadcn/UI design system
-- **Error prevention:** Form validation, clear CTAs
+## Environment
+
+**server/.env**
+
+```
+PORT=3001
+BOT_TOKEN=...
+WEB_APP_URL=https://...
+GROQ_API_KEY=...
+```
+
+**.env.local (Next.js)**
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
 
 ## License
 
