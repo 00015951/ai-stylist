@@ -23,7 +23,7 @@ import { getTranslations } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { stepTransition } from "@/lib/animations";
 import { useTelegram } from "@/providers/telegram-provider";
-import { getApiBase, updateUserProfile } from "@/lib/api";
+import { updateUserProfile } from "@/lib/api";
 
 const PROFILE_STEPS = 4;
 
@@ -243,7 +243,7 @@ export function OnboardingProfile({
         budget: budget || "medium",
       };
       setProfile(profileData);
-      if (getApiBase() && initData) {
+      if (process.env.NEXT_PUBLIC_API_URL && initData) {
         updateUserProfile(
           { ...profileData, stylePreferences: [] },
           initData

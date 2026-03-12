@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { staggerContainer, staggerItem } from "@/lib/animations";
 import { Textarea } from "@/components/ui/textarea";
 import { useTelegram } from "@/providers/telegram-provider";
-import { getApiBase, updateUserProfile } from "@/lib/api";
+import { updateUserProfile } from "@/lib/api";
 
 const STYLE_OPTIONS: {
   value: StylePreference;
@@ -70,7 +70,7 @@ export function OnboardingStylePrefs({
     setStylePreferences(selected);
     setCustomStyleDescription(null);
     setOnboardingComplete(true);
-    if (getApiBase() && initData && profile) {
+    if (process.env.NEXT_PUBLIC_API_URL && initData && profile) {
       updateUserProfile(
         {
           ...profile,
@@ -92,7 +92,7 @@ export function OnboardingStylePrefs({
     setCustomStyleDescription(text);
     setStylePreferences(["casual"]); // fallback for API compatibility
     setOnboardingComplete(true);
-    if (getApiBase() && initData && profile) {
+    if (process.env.NEXT_PUBLIC_API_URL && initData && profile) {
       updateUserProfile(
         { ...profile, stylePreferences: ["casual"] },
         initData

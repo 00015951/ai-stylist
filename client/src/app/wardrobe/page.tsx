@@ -12,7 +12,7 @@ import { useAppStore } from "@/store/use-app-store";
 import { Button } from "@/components/ui/button";
 import { useTelegram } from "@/providers/telegram-provider";
 import { getTranslations } from "@/lib/i18n";
-import { getApiBase, removeFromWardrobe } from "@/lib/api";
+import { removeFromWardrobe } from "@/lib/api";
 
 const LOCALE_MAP: Record<string, string> = { en: "en-US", ru: "ru-RU", uz: "uz-UZ" };
 
@@ -29,7 +29,7 @@ export default function WardrobePage() {
 
   const handleRemove = (id: string) => {
     haptic.impact("light");
-    if (getApiBase() && initData) {
+    if (process.env.NEXT_PUBLIC_API_URL && initData) {
       removeFromWardrobe(id, initData).then(() => {
         removeFromFavorites(id);
       }).catch(() => {

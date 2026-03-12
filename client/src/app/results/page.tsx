@@ -19,7 +19,7 @@ import { useTelegram } from "@/providers/telegram-provider";
 import { getTranslations } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { LoadingLoader } from "@/components/ui/loading-loader";
-import { getApiBase, addToWardrobe } from "@/lib/api";
+import { addToWardrobe } from "@/lib/api";
 
 const AI_SCORE = 92;
 
@@ -129,7 +129,7 @@ export default function ResultsPage() {
       imageUrl: selectedImage,
       shopping: selectedShopping,
     };
-    if (getApiBase() && initData) {
+    if (process.env.NEXT_PUBLIC_API_URL && initData) {
       const saved = await addToWardrobe(payload, initData);
       if (saved?.id != null) {
         addToFavorites(payload, {

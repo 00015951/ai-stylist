@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useCallback, useRef } from "react";
-import { getApiBase, getUserProfile, getWardrobe } from "@/lib/api";
+import { getUserProfile, getWardrobe } from "@/lib/api";
 import { useAppStore } from "@/store/use-app-store";
 
 /**
@@ -141,7 +141,7 @@ export function TelegramProvider({ children }: TelegramProviderProps) {
 
   // Sync profile & wardrobe from backend when we have initData + API
   useEffect(() => {
-    const apiBase = getApiBase();
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || "";
     if (!apiBase || !initData || syncedRef.current) return;
     syncedRef.current = true;
 

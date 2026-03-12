@@ -8,11 +8,6 @@ const API_BASE =
     ? (process.env.NEXT_PUBLIC_API_URL || "")
     : "";
 
-/** Backend base URL when set (client-only); used for sync/hydration */
-function getApiBase(): string {
-  return typeof window !== "undefined" ? (process.env.NEXT_PUBLIC_API_URL || "") : "";
-}
-
 function getHeaders(initData?: string | null): HeadersInit {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -136,5 +131,3 @@ export async function removeFromWardrobe(id: string, initData: string | null) {
   });
   return res.ok;
 }
-
-export { getApiBase };
