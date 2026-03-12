@@ -9,7 +9,7 @@ const API_BASE =
     : "";
 
 /** Backend base URL when set (client-only); used for sync/hydration */
-export function getApiBase(): string {
+function getApiBase(): string {
   return typeof window !== "undefined" ? (process.env.NEXT_PUBLIC_API_URL || "") : "";
 }
 
@@ -136,3 +136,5 @@ export async function removeFromWardrobe(id: string, initData: string | null) {
   });
   return res.ok;
 }
+
+export { getApiBase };

@@ -15,7 +15,7 @@ import {
 import { useAppStore } from "@/store/use-app-store";
 import { useTelegram } from "@/providers/telegram-provider";
 import { getTranslations } from "@/lib/i18n";
-import { getUserProfile, getApiBase } from "@/lib/api";
+import { getUserProfile } from "@/lib/api";
 
 const BODY_TYPE_KEYS: Record<string, keyof ReturnType<typeof getTranslations>["onboarding"]> = {
   slim: "slim",
@@ -57,7 +57,7 @@ export default function ProfilePage() {
     getUserProfile(initData).then((data) => {
       if (!data) return;
       setTelegramUser(data);
-      if (getApiBase() && data.onboarding) {
+      if (process.env.NEXT_PUBLIC_API_URL && data.onboarding) {
         const o = data.onboarding;
         setProfile({
           height: o.height ?? 170,
