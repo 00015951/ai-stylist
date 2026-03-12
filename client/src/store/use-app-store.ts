@@ -119,7 +119,7 @@ interface AppState {
   // Favorites (synced with backend when API_BASE + initData)
   favorites: SavedOutfit[];
   setFavorites: (favorites: SavedOutfit[]) => void;
-  addToFavorites: (outfit: Omit<SavedOutfit, "id" | "createdAt">, options?: { id?: string; createdAt?: string }) => void;
+  addToFavorites: (outfit: Omit<SavedOutfit, "id" | "createdAt"> & { id?: string; createdAt?: string }) => void;
   removeFromFavorites: (id: string) => void;
 
   // Last generated result (for results page)
@@ -171,14 +171,14 @@ export const useAppStore = create<AppState>()(
 
       favorites: [],
       setFavorites: (favorites) => set({ favorites }),
-      addToFavorites: (outfit, options) =>
+      addToFavorites: (outfit) =>
         set((state) => ({
           favorites: [
             ...state.favorites,
             {
               ...outfit,
-              id: options?.id ?? crypto.randomUUID(),
-              createdAt: options?.createdAt ?? new Date().toISOString(),
+              id: outfit.id ?? crypto.randomUUID(),
+              createdAt: outfit.createdAt ?? new Date().toISOString(),
             },
           ],
         })),

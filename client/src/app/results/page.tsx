@@ -132,7 +132,8 @@ export default function ResultsPage() {
     if (process.env.NEXT_PUBLIC_API_URL && initData) {
       const saved = await addToWardrobe(payload, initData);
       if (saved?.id != null) {
-        addToFavorites(payload, {
+        addToFavorites({
+          ...payload,
           id: String(saved.id),
           createdAt: saved.createdAt ?? new Date().toISOString(),
         });
