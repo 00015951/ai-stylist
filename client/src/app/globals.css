@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+ * Burgundy color palette
+ * Rich wine red, elegant and modern
+ */
+@layer base {
+  :root {
+    --background: 340 20% 98%;
+    --foreground: 340 25% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 340 25% 15%;
+    --primary: 350 55% 38%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 340 25% 94%;
+    --secondary-foreground: 340 25% 25%;
+    --muted: 340 20% 95%;
+    --muted-foreground: 340 15% 45%;
+    --accent: 350 40% 94%;
+    --accent-foreground: 350 50% 30%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 340 20% 90%;
+    --input: 340 20% 92%;
+    --ring: 350 55% 38%;
+    --radius: 0.875rem;
+    --popover: 0 0% 100%;
+    --popover-foreground: 340 25% 15%;
+  }
+
+  .dark {
+    --background: 340 25% 6%;
+    --foreground: 340 10% 95%;
+    --card: 340 20% 10%;
+    --card-foreground: 340 10% 95%;
+    --primary: 350 50% 55%;
+    --primary-foreground: 340 30% 8%;
+    --secondary: 340 15% 18%;
+    --secondary-foreground: 340 10% 95%;
+    --muted: 340 15% 18%;
+    --muted-foreground: 340 8% 65%;
+    --accent: 350 30% 18%;
+    --accent-foreground: 350 45% 75%;
+    --destructive: 0 62.8% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 340 18% 22%;
+    --input: 340 18% 16%;
+    --ring: 350 50% 55%;
+    --popover: 340 20% 10%;
+    --popover-foreground: 340 10% 95%;
+  }
+}
+
+/* Burgundy tint for black line-art icons (gender, body type, occasion) */
+.icon-burgundy img {
+  filter: brightness(0) saturate(100%) invert(32%) sepia(49%) saturate(1500%) hue-rotate(328deg) brightness(0.92) contrast(90%);
+}
+.icon-burgundy svg {
+  color: hsl(var(--primary));
+}
+
+/* Base styles for mobile-first, touch-friendly UI */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    @apply bg-background text-foreground antialiased;
+    overscroll-behavior: none;
+    min-height: 100dvh;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-archivo), var(--font-playfair), serif;
+    font-weight: 700;
+  }
+  .font-heading {
+    font-weight: 700;
+  }
+}
+
+/* Subtle card elevation for editorial feel */
+.card-elevated {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+/* Premium animations - reduce on mobile / prefers-reduced-motion */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-gradient {
+  animation: gradient-shift 15s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-gradient {
+    animation: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Paywall lock animation */
+@keyframes lock-bounce {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.15); }
+  50% { transform: scale(0.95); }
+  75% { transform: scale(1.08); }
+}
+
+@keyframes lock-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+@keyframes btn-shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  30% { transform: translateX(6px); }
+  45% { transform: translateX(-4px); }
+  60% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+  90% { transform: translateX(2px); }
+}
+
+.animate-lock-bounce {
+  animation: lock-bounce 0.6s ease-out;
+}
+
+.animate-lock-shake {
+  animation: lock-shake 0.5s ease-out;
+}
+
+.animate-btn-shake {
+  animation: btn-shake 0.5s ease-out;
+}
+
+/* ===== Custom cursor — luxury fashion-tech minimalist ===== */
+/* Light / pure white background version */
+.custom-cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: 50%;
+  /* 12px, warm white / light pearl gradient */
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 253, 250, 0.98) 0%,
+    rgba(250, 248, 245, 0.92) 40%,
+    rgba(242, 238, 232, 0.88) 70%,
+    rgba(235, 230, 222, 0.85) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(255, 252, 248, 0.2),
+    0 0 14px 2px rgba(255, 250, 240, 0.25),
+    0 0 24px 4px rgba(255, 248, 238, 0.08);
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+/* Dark version — slightly stronger glow for contrast */
+.dark .custom-cursor-dot {
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 252, 250, 0.95) 0%,
+    rgba(248, 245, 240, 0.9) 40%,
+    rgba(240, 236, 230, 0.85) 70%,
+    rgba(232, 228, 222, 0.8) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(255, 250, 245, 0.15),
+    0 0 16px 3px rgba(255, 248, 240, 0.2),
+    0 0 28px 6px rgba(255, 245, 235, 0.1);
+}
+
+/* Hide system cursor when custom cursor is active (desktop only) */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}

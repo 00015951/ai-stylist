@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Next.js / build output
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Env and secrets (never commit)
+.env
+.env.local
+.env.*.local
+**/.env
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Debug / coverage
+coverage/
+.nyc_output/
